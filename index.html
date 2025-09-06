@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz: Enfermagem no APH - Paim e PHTLS 10ª Ed.</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 20px; 
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    h1 { 
+      color: #006699; 
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #timerContainer {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #006699;
+    }
+    #timerContainer.time-critical {
+        color: red;
+        animation: pulse 1s infinite alternate;
+    }
+    @keyframes pulse {
+        from { transform: scale(1); }
+        to { transform: scale(1.05); }
+    }
+    .question { 
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .question p {
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #0056b3;
+    }
+    .question label {
+      display: block;
+      margin-bottom: 10px;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    .question label:hover {
+      background-color: #e9e9e9;
+    }
+    .question input[type="radio"] {
+      margin-right: 10px;
+    }
+    .correct { 
+      color: green; 
+      font-weight: bold;
+    }
+    .incorrect { 
+      color: red; 
+      font-weight: bold;
+    }
+    .feedback-item { 
+      margin-bottom: 15px;
+      border-bottom: 1px dashed #eee;
+      padding-bottom: 10px;
+    }
+    .feedback-item:last-child {
+      border-bottom: none;
+    }
+    .feedback-item p {
+      margin: 5px 0;
+      padding-left: 20px;
+    }
+    #results { 
+      margin-top: 40px; 
+      padding: 25px; 
+      border-top: 2px solid #ccc; 
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    #results h2 {
+      color: #006699;
+      margin-bottom: 20px;
+    }
+    #results h3 {
+      text-align: center;
+      margin-top: 20px;
+      color: #0056b3;
+    }
+    .button-group {
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+    .button-group button { 
+      margin: 0 10px;
+      padding: 12px 25px; 
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+    }
+    .button-group button:hover {
+      background-color: #0056b3;
+    }
+    .button-group button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+    }
+
+    #pastResultsContainer {
+      margin-top: 50px;
+      padding: 25px;
+      border-top: 2px solid #006699;
+      background-color: #e9f5ff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    #pastResultsContainer h2 {
+      color: #006699;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    #pastResultsList {
+      list-style-type: none;
+      padding: 0;
+    }
+    #pastResultsList li {
+      background-color: #fff;
+      border: 1px solid #cceeff;
+      border-radius: 5px;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #pastResultsList li span {
+        font-weight: bold;
+        color: #333;
+    }
+    #pastResultsList li .date-time {
+        font-size: 0.9em;
+        color: #666;
+    }
+    #clearResultsBtn {
+        margin-top: 20px;
+        background-color: #dc3545;
+    }
+    #clearResultsBtn:hover {
+        background-color: #c82333;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Quiz: Enfermagem no APH - Paim e PHTLS 10ª Ed.</h1>
+  <div id="timerContainer">
+    Tempo Restante: <span id="timerDisplay"></span>
+  </div>
+  <form id="quizForm">
+    <!-- Questões -->
+    <div class="question">
+      <p>1. Qual é a primeira etapa do protocolo XABCDE no APH?</p>
+      <label><input type="radio" name="q1" value="0"> eXsanguinação — controle imediato de hemorragias graves.</label><br>
+      <label><input type="radio" name="q1" value="1"> Opção Incorreta B</label><br>
+      <label><input type="radio" name="q1" value="2"> Opção Incorreta C</label><br>
+      <label><input type="radio" name="q1" value="3"> Opção Incorreta D</label>
+    </div>
+
+    <div class="question">
+      <p>2. Qual dispositivo é mais indicado para ventilação em parada respiratória?</p>
+      <label><input type="radio" name="q2" value="0"> Opção Incorreta A</label><br>
+      <label><input type="radio" name="q2" value="1"> Bolsa-valva-máscara (BVM).</label><br>
+      <label><input type="radio" name="q2" value="2"> Opção Incorreta C</label><br>
+      <label><input type="radio" name="q2" value="3"> Opção Incorreta D</label>
+    </div>
+
+    <div class="question">
+      <p>3. Como deve ser aberta a via aérea em paciente com suspeita de trauma cervical?</p>
+      <label><input type="radio" name="q3" value="0"> Manobra de tração mandibular.</label><br>
+      <label><input type="radio" name="q3" value="1"> Opção Incorreta B</label><br>
+      <label><input type="radio" name="q3" value="2"> Opção Incorreta C</label><br>
+      <label><input type="radio" name="q3" value="3"> Opção Incorreta D</label>
+    </div>
+
+    <div class="question">
+      <p>4. Qual é o sinal mais precoce de choque hipovolêmico?</p>
+      <label><input type="radio" name="q4" value="0"> Opção Incorreta A</label><br>
+      <label><input type="radio" name="q4" value="1"> Pele fria e úmida.</label><br>
+      <label><input type="radio" name="q4" value="2"> Opção Incorreta C</label><br>
+      <label><input type="radio" name="q4" value="3"> Opção Incorreta D</label>
+    </div>
+
+    <div class="question">
+      <p>5. Qual técnica é indicada para controle de hemorragia externa grave?</p>
+      <label><input type="radio" name="q5" value="0"> Torniquete.</label><br>
+      <label><input type="radio" name="q5" value="1"> Opção Incorreta B</label><br>
+      <label><input type="radio" name="q5" value="2"> Opção Incorreta C</label><br>
+      <label><input type="radio" name="q5" value="3"> Opção Incorreta D</label>
+    </div>
+
+    <div class="question">
+      <p>6. Qual posição é indicada para paciente inconsciente sem trauma?</p>
+      <label><input type="radio" name="q6" value="0"> Opção Incorreta A</label><br>
+      <label><input type="radio" name="q6" value="1"> Posição lateral de recuperação.</label><br>
+      <label><input type="radio" name="q6" value="2"> Opção Incorreta C</label><br>
+      <label><input type="radio" name="q6" value="3"> Opção Incorreta D</label>
+    </div>
+
+    <div class="question">
+      <p>7. Qual é o tempo ideal para realizar a avaliação primária?</p>
+      <label><input type="radio" name="q7" value="0"> Menos de 1 minuto.</label><br>
+      <label><input type="radio" name="q7" value="1"> Opção Incorreta B</label><br>
+      <label><input type="radio" name="q7" value="2"> Opção Incorreta C</label><br>
+      <label><input type="radio" name="q7" value="3"> Opção Incorreta D</label>
+    </div>
+
+    <div class="question">
+      <p>8. Qual escala é usada para avaliação neurológica rápida?</p>
+      <label><input type="radio" name="q8" value="0"> Opção Incorreta A</label><br>
+      <label><input type="radio" name="q8" value="1"> AVDI.</label><br>
+      <label><input type="radio" name="q8" value="2"> Opção Incorreta C</label><br>
+      <label><input type="radio" name="q8" value="3"> Opção Incorreta D</label>
+    </div>
+
+    <div class="question">
+      <p>9. Qual é a função da cânula orofaríngea?</p>
+      <label><input type="radio" name="q9" value="0"> Evitar obstrução das vias aéreas por queda da língua.</label><br>
+      <label><input type="radio" name="q9" value="1"> Opção Incorreta B</label><br>
+      <label><input type="radio" name="q9" value="2"> Opção Incorreta C</label><br>
+      <label><input type="radio" name="q9" value="3"> Opção Incorreta D</label>
+    </div>
+
+    <div class="question">
+      <p>10. Qual é a prioridade após garantir a segurança da cena?</p>
+      <label><input type="radio" name="q10" value="0"> Opção Incorreta A</label><br>
+      <label><input type="radio" name="q10" value="1"> Verificar responsividade.</label><br>
+      <label><input type="radio" name="q10" value="2"> Opção Incorreta C</label><br>
+      <label><input type="radio" name="q10" value="3"> Opção Incorreta D</label>
+    </div>
+
+    <div class="question">
+      <p>11. Qual é a conduta frente a trauma torácico com pneumotórax hipertensivo?</p>
+      <label><input type="radio" name="q11" value="0"> Punção de alívio.</label><br>
+      <label><input type="radio" name="q11" value="1"> Opção Incorreta B</label><br>
+      <label><input type="radio" name="q11" value="2"> Opção Incorreta C</label><br>
+      <label><input type="radio" name="q11" value="3"> Opção Incorreta D</label>
+    </div>
+
+    <div class="question">
+      <p>12. Qual é o objetivo da exposição no protocolo XABCDE?</p>
+      <label><input type="radio" name="q12" value="0"> Opção Incorreta A</label><br>
+      <label><input type="radio" name="q12" value="1"> Avaliar lesões ocultas e prevenir hipotermia.</label><br>
+      <label><input type="radio" name="q12" value="2"> Opção Incorreta C</label><br>
+      <label><input type="radio" name="q12" value="3"> Opção Incorreta D</label>
+    </div>
+    
+    <div class="question">
+      <p>13. Qual é a conduta frente a fratura pélvica instável?</p>
+      <label><input type="radio" name="q13" value="0"> Imobilização com faixa pélvica.</label><br>
+      <label><input type="radio" name="q13" value="1"> Opção Incorreta B</label><br>
+      <label><input type="radio" name="q13" value="2"> Opção Incorreta C</label><br>
+      <label><input type="radio" name="q13" value="3"> Opção Incorreta D</label>
+    </div>
+
+    <div class="question">
+      <p>14. Qual é o papel da enfermagem na comunicação com a vítima?</p>
+      <label><input type="radio" name="q14" value="0"> Opção Incorreta A</label><br>
+      <label><input type="radio" name="q14" value="1"> Acolher, informar e tranquilizar.</label><br>
+      <label><input type="radio" name="q14" value="2"> Opção Incorreta C</label><br>
+      <label><input type="radio" name="q14" value="3"> Opção Incorreta D</label>
+    </div>
+
+    <div class="question">
+      <p>15. Qual é a recomendação atual sobre uso de prancha longa?</p>
+      <label><input type="radio" name="q15" value="0"> Apenas para extricação.</label><br>
+      <label><input type="radio" name="q15" value="1"> Opção Incorreta B</label><br>
+      <label><input type="radio" name="q15" value="2"> Opção Incorreta C</label><br>
+      <label><input type="radio" name="q15" value="3"> Opção Incorreta D</label>
+    </div>
+
+    <div class="button-group">
+        <button type="button" id="corrigirBtn" onclick="corrigirQuiz()">Corrigir</button>
+        <button type="button" id="reiniciarBtn" onclick="reiniciarQuiz()">Reiniciar Quiz</button>
+    </div>
+  </form>
+
+  <div id="results"></div>
+
+  <div id="pastResultsContainer">
+    <h2>Resultados Anteriores</h2>
+    <ul id="pastResultsList">
+      <!-- Resultados anteriores serão carregados aqui -->
+    </ul>
+    <div class="button-group">
+        <button type="button" id="clearResultsBtn" onclick="clearPastResults()">Limpar Resultados Anteriores</button>
+    </div>
+  </div>
+
+  <script>
+    // GABARITO
+    const gabarito = {
+      q1: { correta: "0", justificativa: "O “X” foi incluído para priorizar sangramentos que ameaçam a vida." },
+      q2: { correta: "1", justificativa: "Permite ventilação eficaz e rápida no APH." },
+      q3: { correta: "0", justificativa: "Evita movimentação da coluna cervical." },
+      q4: { correta: "1", justificativa: "Indica vasoconstrição periférica e má perfusão." },
+      q5: { correta: "0", justificativa: "É eficaz e recomendado como primeira escolha em sangramentos massivos." },
+      q6: { correta: "1", justificativa: "Mantém vias aéreas desobstruídas e previne aspiração." },
+      q7: { correta: "0", justificativa: "Permite decisões rápidas e priorização de intervenções críticas." },
+      q8: { correta: "1", justificativa: "Avalia alerta, resposta verbal, resposta dolorosa e inconsciência." },
+      q9: { correta: "0", justificativa: "Mantém via aérea patente em pacientes inconscientes." },
+      q10: { correta: "1", justificativa: "Inicia o protocolo XABCDE com avaliação do estado neurológico." },
+      q11: { correta: "0", justificativa: "Reduz pressão intratorácica e melhora ventilação." },
+      q12: { correta: "1", justificativa: "Permite inspeção completa sem comprometer a termorregulação." },
+      q13: { correta: "0", justificativa: "Reduz sangramento e estabiliza estrutura." },
+      q14: { correta: "1", justificativa: "Comunicação terapêutica reduz ansiedade e melhora adesão ao cuidado." },
+      q15: { correta: "0", justificativa: "Evita complicações por imobilização prolongada." }
+    };
+
+    const timeLimitInSeconds = 450; // Tempo limite: 7 minutos e 30 segundos (15 perguntas * 30 seg)
+    let timeLeft = timeLimitInSeconds;
+    let timerInterval;
+    const timerDisplay = document.getElementById('timerDisplay');
+    const timerContainer = document.getElementById('timerContainer');
+    const pastResultsList = document.getElementById('pastResultsList');
+    const totalQuestions = 15; 
+
+    // Função para formatar o tempo em MM:SS
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = seconds % 60;
+      return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+    }
+
+    // Função para iniciar o contador de tempo
+    function startTimer() {
+      timerDisplay.textContent = formatTime(timeLeft);
+
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = formatTime(timeLeft);
+
+        if (timeLeft <= 30 && !timerContainer.classList.contains('time-critical')) {
+            timerContainer.classList.add('time-critical');
+        } else if (timeLeft > 30 && timerContainer.classList.contains('time-critical')) {
+            timerContainer.classList.remove('time-critical');
+        }
+
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          timerDisplay.textContent = "00:00 - Tempo Esgotado!";
+          const radioButtons = document.querySelectorAll('#quizForm input[type="radio"]');
+          radioButtons.forEach(radio => radio.disabled = true);
+          corrigirQuiz();
+        }
+      }, 1000);
+    }
+
+    // Função para carregar e exibir resultados anteriores do localStorage
+    function loadPastResults() {
+        pastResultsList.innerHTML = '';
+        const storedResults = JSON.parse(localStorage.getItem('quizPaimCIPE_Results')) || []; 
+
+        if (storedResults.length === 0) {
+            pastResultsList.innerHTML = `<li>Nenhum resultado anterior encontrado para ${totalQuestions} questões.</li>`;
+            document.getElementById('clearResultsBtn').disabled = true;
+        } else {
+            storedResults.forEach((result, index) => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<span>Quiz #${index + 1}: ${result.score} de ${totalQuestions} acertos</span> <span class="date-time">${new Date(result.timestamp).toLocaleString()}</span>`;
+                pastResultsList.appendChild(listItem);
+            });
+            document.getElementById('clearResultsBtn').disabled = false;
+        }
+    }
+
+    // Função para limpar os resultados anteriores
+    function clearPastResults() {
+        if (confirm('Tem certeza que deseja limpar todos os resultados anteriores para este quiz?')) {
+            localStorage.removeItem('quizPaimCIPE_Results'); 
+            loadPastResults();
+        }
+    }
+
+    window.onload = function() {
+        startTimer();
+        loadPastResults();
+    };
+
+    function corrigirQuiz() {
+      clearInterval(timerInterval);
+      timerContainer.classList.remove('time-critical');
+
+      const form = document.getElementById('quizForm');
+      const results = document.getElementById('results');
+      let score = 0;
+      let feedbackHTML = "<h2>Gabarito e Justificativas</h2>";
+
+      const radioButtons = document.querySelectorAll('#quizForm input[type="radio"]');
+      radioButtons.forEach(radio => radio.disabled = true);
+
+      for (let i = 1; i <= totalQuestions; i++) { 
+        const qName = "q" + i;
+        const selectedOption = form.querySelector(`input[name="${qName}"]:checked`);
+        const resposta = selectedOption ? selectedOption.value : undefined;
+        
+        const correta = gabarito[qName].correta;
+        const justificativa = gabarito[qName].justificativa;
+
+        feedbackHTML += `<div class="feedback-item">`;
+        if (resposta === undefined) {
+          feedbackHTML += `<p><strong>Questão ${i}:</strong> <span class="incorrect">❌ Não respondida</span><br>`;
+          feedbackHTML += `A alternativa correta é a de valor <strong>${correta}</strong>.<br>${justificativa}</p>`;
+        } else if (resposta === correta) {
+          score++;
+          feedbackHTML += `<p><strong>Questão ${i}:</strong> <span class="correct">✅ Correta</span><br>`;
+          feedbackHTML += `${justificativa}</p>`;
+        } else {
+          feedbackHTML += `<p><strong>Questão ${i}:</strong> <span class="incorrect">❌ Incorreta</span><br>`;
+          feedbackHTML += `Você marcou a alternativa de valor <strong>${resposta}</strong>. Correta: valor <strong>${correta}</strong>.<br>${justificativa}</p>`;
+        }
+        feedbackHTML += `</div>`;
+      }
+
+      feedbackHTML += `<h3>Resultado Final: ${score} de ${totalQuestions} acertos</h3>`;
+      results.innerHTML = feedbackHTML;
+
+      document.getElementById('corrigirBtn').disabled = true;
+      document.getElementById('reiniciarBtn').disabled = false;
+
+      const quizResult = {
+          score: score,
+          totalQuestions: totalQuestions, 
+          timestamp: new Date().toISOString()
+      };
+
+      const storedResults = JSON.parse(localStorage.getItem('quizPaimCIPE_Results')) || []; 
+      storedResults.push(quizResult);
+      localStorage.setItem('quizPaimCIPE_Results', JSON.stringify(storedResults));
+
+      loadPastResults();
+    }
+
+    function reiniciarQuiz() {
+      window.location.reload();
+    }
+  </script>
+</body>
+</html>
